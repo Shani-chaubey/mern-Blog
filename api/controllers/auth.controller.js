@@ -37,7 +37,7 @@ export const signin  = async (req,res,next)=> {
         let validUser = await User.findOne({ email });
                 
         if(!validUser) {
-            return next(errorHandler(401,"Invalid Username"));
+            return next(errorHandler(401,"You have entered Invalid Username"));
         }
     
         // compare the provided password with the hashed password in database
@@ -56,7 +56,4 @@ export const signin  = async (req,res,next)=> {
     } catch (error) {
         next(error);
     }
-
-
-    
 }

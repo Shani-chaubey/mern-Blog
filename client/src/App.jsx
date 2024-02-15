@@ -8,9 +8,12 @@ import Projects from "./pages/Projects";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 import FooterCom from "./components/Footer";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 export default function App() {
   return (
+    
     <BrowserRouter>
       <Header />
       <Routes>
@@ -23,5 +26,6 @@ export default function App() {
       </Routes>
       <FooterCom />
     </BrowserRouter>
+  
   );
 }
