@@ -9,7 +9,7 @@ export const updateUser = async(req, res,next) => {
 
     }
     if(req.body.password){
-        if(req.body.password < 6){
+        if(req.body.password < 6){  
             return next(errorHandler(400, 'Password must be at least 6 characters'))
         }
         const hashedPassword = bcryptjs.hashSync(req.body.password, 8);
