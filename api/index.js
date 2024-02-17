@@ -10,7 +10,7 @@ dotenv.config()
 const app = express();
 
 app.use(express.json())
-
+app.use(cookieParser())
 mongoose.connect(process.env.MONGO)
 .then( () => {console.log("Database is connected")} ).catch( (err) => console.log(err));
 
@@ -20,7 +20,7 @@ mongoose.connect(process.env.MONGO)
 
 app.use('/api/user', userRoutes);
 app.use('/api/auth',authRoutes)
-app.use(cookieParser())
+
 
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;
