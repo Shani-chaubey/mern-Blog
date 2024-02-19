@@ -1,10 +1,11 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from "../redux/theme/themeSlice";
+import { signOutDone, signOutFailure, signOutStart } from "../redux/user/userSlice";
 
 
 export default function Header() {
@@ -12,6 +13,22 @@ export default function Header() {
     const {theme} = useSelector(state => state.theme);
     const path = useLocation().pathname;
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const handleSignOut = async()=>{
+      dispatch(signOutStart())
+      try {
+        const res = await fetch(`/api/user/signout`, {
+          method: "POST",
+        })
+        if(res.ok){
+          dispatch(signOutDone())
+          navigate("/")
+        }
+      } catch (error) {
+        dispatch(signOutFailure(error.message))
+      }
+    
+    }
   return (
     <Navbar className="border-b-2 sticky top-0 z-50">
       <Link
@@ -44,9 +61,9 @@ export default function Header() {
               <span className="block text-sm">@{currentUser.username}</span>
               <span className="block text-sm font-medium truncate">{currentUser.email}</span>
             </Dropdown.Header>
-            <Link to='/dashboard'><Dropdown.Item>Profile</Dropdown.Item></Link>
+            <Link to='/dashboard?tab=profile'><Dropdown.Item>Profile</Dropdown.Item></Link>
             <Dropdown.Divider/>
-            <Link to='/signoout'><Dropdown.Item>Sign Out</Dropdown.Item></Link>
+           <Dropdown.Item onClick={handleSignOut}>Sign Out</Dropdown.Item>
           </Dropdown>
           </>
         ) : (

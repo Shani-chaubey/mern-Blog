@@ -8,7 +8,6 @@ export const updateUser = async(req, res,next) => {
         return next(errorHandler(401, 'Unauthorised User'))
 
     }
-    console.log(req.body)
     if(req.body.password){
         if(req.body.password < 6){  
             return next(errorHandler(400, 'Password must be at least 6 characters'))
@@ -50,6 +49,14 @@ export const deleteUser = async (req,res,next)=>{
         return next(errorHandler(401, 'Unable to delete the account'));
     }
     
+}
+
+export const signOutUser = async (req,res,next)=>{
+    try {
+        res.clearCookie('access_token').status(200).json({message:"Signed Out Successfully"});
+    } catch (error) {
+       next(error)
+    }
 }
 
 
