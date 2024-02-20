@@ -1,11 +1,12 @@
-import { HiArrowSmRight, HiUser } from "react-icons/hi";
+import { HiArrowSmRight, HiDocumentText, HiUser } from "react-icons/hi";
 import { Sidebar } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOutDone, signOutFailure, signOutStart } from "../redux/user/userSlice";
 
 export default function DashSidebar() {
+  const { currentUser } = useSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useDispatch()
   const [tab, setTab] = useState();
@@ -36,16 +37,26 @@ export default function DashSidebar() {
   return (
     <Sidebar className="w-full md:w-56"> 
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
+        <Sidebar.ItemGroup className="flex flex-col gap-1">
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={ tab === "profile" ? true : false}
               icon={HiUser}
-              label={"user"}
+              label={ currentUser.isAdmin ? 'Admin' : 'User'}
               labelColor="dark"
               as='div'
             >
               Profile
+            </Sidebar.Item>
+          </Link>
+          <Link to="/dashboard?tab=posts">
+            <Sidebar.Item
+              active={ tab === "posts" ? true : false}
+              icon={HiDocumentText}
+              labelColor="dark"
+              as='div'
+            >
+              Posts
             </Sidebar.Item>
           </Link>
           <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer" onClick={handleSignOut}>

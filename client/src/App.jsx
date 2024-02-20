@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { PrivateRoute, AdminRoute } from "./components/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
+import UpdatePost from "./pages/UpdatePost";
 
 export default function App() {
   return (
@@ -27,6 +28,9 @@ export default function App() {
         </Route>
         <Route element={<AdminRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
+        </Route>
+        <Route element={<AdminRoute />}>
+          <Route path="/update-post/:postId" element={<UpdatePost />} />
         </Route>
         <Route path="/projects" element={<Projects />} />
       </Routes>
