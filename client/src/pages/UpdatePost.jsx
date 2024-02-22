@@ -20,6 +20,8 @@ export default function UpdatePost() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+
+
   const { postId } = useParams();
 
   const navigate = useNavigate();
@@ -86,7 +88,7 @@ export default function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/post/updatepost/${formData._id}/${currentUser._id}`, {
+      const res = await fetch(`/api/posts/update/${formData._id}/${currentUser._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -131,6 +133,7 @@ export default function UpdatePost() {
           >
             <option value='uncategorized'>Select a category</option>
             <option value='javascript'>JavaScript</option>
+            <option value="investmen-guide">Investment Guide</option>
             <option value='reactjs'>React.js</option>
             <option value='nextjs'>Next.js</option>
           </Select>

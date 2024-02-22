@@ -20,14 +20,16 @@ export default function DashPosts() {
         if (res.ok) {
           setFetchedPosts(data.posts);
         }
-        if(data.totalPost < 10){
+        if(data.totalPosts < 10){
           setShowMore(false)
+         
         }
-        console.log(data.totalPost)
+        console.log(data.totalPosts)
       } catch (error) {
         console.log(error)
       }
     };
+   
     if (currentUser.isAdmin) {
       fetchposts();
     }
@@ -35,6 +37,7 @@ export default function DashPosts() {
 
   const handleShowMore= async ()=>{
     const startIndex =  fetchedPosts.length
+ 
     try {
       const res = await fetch(`/api/posts/getposts?userId=${currentUser._id}&startIndex=${startIndex}`);
       const newData = await res.json();
@@ -44,6 +47,7 @@ export default function DashPosts() {
           setShowMore(false);
         }
       }
+    
     } catch (error) {
       console.log(error)
     }
