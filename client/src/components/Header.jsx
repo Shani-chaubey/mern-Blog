@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
-import { signoutSuccess } from '../redux/user/userSlice';
+import { signOutDone } from '../redux/user/userSlice';
 import { useEffect, useState } from 'react';
 
 export default function Header() {
@@ -33,7 +33,7 @@ export default function Header() {
       if (!res.ok) {
         console.log(data.message);
       } else {
-        dispatch(signoutSuccess());
+        dispatch(signOutDone());
       }
     } catch (error) {
       console.log(error.message);
